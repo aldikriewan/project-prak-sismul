@@ -47,7 +47,16 @@ const AdminPage = () => {
     try {
       if (editingId) {
         // Edit cerita
-        await axios.put(`http://localhost:8000/api/stori/${editingId}`, formData, {
+        const formData = new FormData();
+        formData.append("_method", "PUT"); // Simulate PUT via POST
+        formData.append("title", title);
+        formData.append("author", author);
+        if (image) formData.append("image", image);
+        if (backgroundImage) formData.append("background_image", backgroundImage);
+        formData.append("description", description);
+        formData.append("story_detail", storyDetail);
+
+        await axios.post(`http://localhost:8000/api/stori/${editingId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

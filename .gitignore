@@ -1,0 +1,29 @@
+# Kilo CLI configuration and workspace data
+.kilo/
+.kilo/**/*
+
+# Kilo agent logs, plans, and worktrees
+.kilo/agent-manager.json
+.kilo/plans/
+.kilo/worktrees/
+
+# Kilo command definitions
+.kilo/command/*.md
+
+# Kilo agent definitions
+.kilo/agent/*.md
+
+# Kilo global config (if present in project)
+.kilo/config/
+
+# Kilo plugins and extensions
+.kilo/plugins/
+.kilo/extensions/
+
+# Kilo cache and temporary files
+.kilo/cache/
+.kilo/tmp/
+
+# Kilo state files
+.kilo/state.json
+.kilo/session.json

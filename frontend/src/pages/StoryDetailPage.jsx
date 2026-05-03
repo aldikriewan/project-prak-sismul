@@ -4,28 +4,58 @@ import { useParams } from "react-router-dom";
 const StoryDetailPage = () => {
   const { id } = useParams();
   const [story, setStory] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost/php-backend/api.php?action=getStory&id=${id}`)
-      .then((response) => response.json())
-      .then((data) => setStory(data));
+    const fetchStory = async () => {
+      try {
+        const response = await fetch(`http://localhost:8000/api/stori/${id}`);
+        const result = await response.json();
+        if (result.success) {
+          // Map the backend fields to what the component expects
+          const data = result.data;
+          setStory({
+            title: data.title,
+            author: data.author,
+            image_url: `http://localhost:8000/storage/${data.image}`,
+            content: data.story_detail,
+            published_at: data.created_at,
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching story:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStory();
   }, [id]);
 
-  if (!story) return <p>Loading...</p>;
+  if (loading) return <p>Loading...</p>;
+  if (!story) return <p>Story not found.</p>;
 
   return (
     <div className="container mx-auto p-4">
       {/* Hero Section */}
       <div className="bg-blue-500 text-white p-6 rounded-lg shadow-md mb-8">
         <h1 className="text-4xl font-bold">{story.title}</h1>
-        <p className="text-lg mt-2">Written by <strong>{story.author}</strong></p>
-        <p className="text-sm text-gray-300 mt-1">Published on {new Date(story.published_at).toLocaleDateString()}</p>
+        <p className="text-lg mt-2">
+          Written by <strong>{story.author}</strong>
+        </p>
+        <p className="text-sm text-gray-300 mt-1">
+          Published on {new Date(story.published_at).toLocaleDateString()}
+        </p>
       </div>
 
       {/* Story Content */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <div className="mb-6">
-          <img src={story.image_url} alt="Story cover" className="w-full rounded-lg" />
+          <img
+            src={story.image_url}
+            alt={story.title}
+            className="w-full rounded-lg"
+          />
         </div>
         <p className="text-gray-700 mb-4">{story.content}</p>
       </div>
@@ -36,8 +66,13 @@ const StoryDetailPage = () => {
         <p className="text-gray-700">Be the first to comment on this story!</p>
         {/* Form for adding comments or showing existing comments */}
         <div className="mt-4">
-          <textarea className="w-full p-4 border border-gray-300 rounded-md" placeholder="Write your comment..."></textarea>
-          <button className="bg-blue-500 text-white p-2 mt-4 rounded-md">Post Comment</button>
+          <textarea
+            className="w-full p-4 border border-gray-300 rounded-md"
+            placeholder="Write your comment..."
+          ></textarea>
+          <button className="bg-blue-500 text-white p-2 mt-4 rounded-md">
+            Post Comment
+          </button>
         </div>
       </div>
     </div>
