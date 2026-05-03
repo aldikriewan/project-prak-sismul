@@ -11,7 +11,7 @@ const HomePage = () => {
         const fetchStoris = async () => {
                 setLoading(true);
                 try {
-                        const response = await fetch('http://127.0.0.1:8000/api/stori');
+                        const response = await fetch('/api/stori');
                         const result = await response.json();
                         if (result.success) {
                                 setStoris(result.data);
@@ -72,21 +72,21 @@ const HomePage = () => {
         <Slider {...sliderSettings}>
             {stori.map((stori, index) => (
             <div key={index} className="relative">
-              <div
-                className="bg-cover bg-center w-full h-[683px] relative"
-                style={{ backgroundImage: `url(http://127.0.0.1:8000/storage/${stori.background_image})` }}
-              >
+               <div
+                 className="bg-cover bg-center w-full h-[683px] relative"
+                 style={{ backgroundImage: `url(/storage/${stori.background_image})` }}
+               >
                 <div className="absolute inset-0 bg-black bg-opacity-30 flex flex-col justify-center items-center text-center text-white">
                   <h2 className="text-3xl font-bold mb-[10px] pt-[20px]">{stori.title}</h2>
                   <p className="text-lg">{stori.author}</p>
                   <p className="text-lg mt-[480px] mb-[50px]">{stori.description}</p>
                 </div>
                 <div className="absolute inset-0 flex justify-center items-center">
-                  <img
-                    src={`http://127.0.0.1:8000/storage/${stori.image}`}
-                    alt={stori.title}
-                    className="w-[300px] h-[400px] object-cover rounded-lg shadow-lg"
-                  />
+                   <img
+                     src={`/storage/${stori.image}`}
+                     alt={stori.title}
+                     className="w-[300px] h-[400px] object-cover rounded-lg shadow-lg"
+                   />
                 </div>
               </div>
             </div>
@@ -110,11 +110,11 @@ const HomePage = () => {
                 key={index}
                 className="bg-white shadow-md border-md border-b border-t rounded-lg p-4 w-64 h-[420px] flex-shrink-0 relative"
               >
-                <img
-                  src={`http://127.0.0.1:8000/storage/${stori.image}`} // Placeholder default
-                  alt={stori.title}
-                  className="rounded-md mb-4 h-[283px] w-full object-cover"
-                />
+                 <img
+                   src={`/storage/${stori.image}`} // Placeholder default
+                   alt={stori.title}
+                   className="rounded-md mb-4 h-[283px] w-full object-cover"
+                 />
                 <h4 className="font-semibold text-gray-800">{stori.title}</h4>
                 <p className="text-gray-500">{stori.author}</p>
 

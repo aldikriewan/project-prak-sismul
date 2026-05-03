@@ -6,31 +6,31 @@ const StoryDetailPage = () => {
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchStory = async () => {
-      try {
-        const response = await fetch(`http://localhost:8000/api/stori/${id}`);
-        const result = await response.json();
-        if (result.success) {
-          // Map the backend fields to what the component expects
-          const data = result.data;
-          setStory({
-            title: data.title,
-            author: data.author,
-            image_url: `http://localhost:8000/storage/${data.image}`,
-            content: data.story_detail,
-            published_at: data.created_at,
-          });
-        }
-      } catch (error) {
-        console.error("Error fetching story:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+   useEffect(() => {
+     const fetchStory = async () => {
+       try {
+         const response = await fetch(`/api/stori/${id}`);
+         const result = await response.json();
+         if (result.success) {
+           // Map the backend fields to what the component expects
+           const data = result.data;
+           setStory({
+             title: data.title,
+             author: data.author,
+             image_url: `/storage/${data.image}`,
+             content: data.story_detail,
+             published_at: data.created_at,
+           });
+         }
+       } catch (error) {
+         console.error("Error fetching story:", error);
+       } finally {
+         setLoading(false);
+       }
+     };
 
-    fetchStory();
-  }, [id]);
+     fetchStory();
+   }, [id]);
 
   if (loading) return <p>Loading...</p>;
   if (!story) return <p>Story not found.</p>;

@@ -17,7 +17,7 @@ const AdminPage = () => {
 
   const fetchStories = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/api/stori");
+      const response = await axios.get("/api/stori");
       setStories(response.data.data);
     } catch (error) {
       console.error("Error fetching stories:", error);
@@ -56,7 +56,7 @@ const AdminPage = () => {
         formData.append("description", description);
         formData.append("story_detail", storyDetail);
 
-        await axios.post(`http://localhost:8000/api/stori/${editingId}`, formData, {
+        await axios.post(`/api/stori/${editingId}`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -64,7 +64,7 @@ const AdminPage = () => {
         alert("Cerita berhasil diperbarui!");
       } else {
         // Tambahkan cerita baru
-        await axios.post("http://localhost:8000/api/stori", formData, {
+        await axios.post("/api/stori", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -83,7 +83,7 @@ const AdminPage = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Yakin ingin menghapus cerita ini?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/stori/${id}`);
+        await axios.delete(`/api/stori/${id}`);
         alert("Cerita berhasil dihapus!");
         fetchStories();
       } catch (error) {

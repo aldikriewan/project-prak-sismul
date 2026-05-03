@@ -147,8 +147,8 @@ class Stori extends CI_Controller {
 
                 if (!$this->upload->do_upload('background_image')) {
                     // Delete image if already uploaded
-                    if ($imagePath && file_exists('./storage/' . $imagePath)) {
-                        unlink('./storage/' . $imagePath);
+                    if ($imagePath && file_exists(FCPATH . 'storage/' . $imagePath)) {
+                        unlink(FCPATH . 'storage/' . $imagePath);
                     }
                     log_message('error', 'Background image upload error: ' . $this->upload->display_errors());
                     $this->json_response([
@@ -188,11 +188,11 @@ class Stori extends CI_Controller {
 
         } catch (Exception $e) {
             // Cleanup uploaded files on error
-            if (isset($imagePath) && file_exists('./storage/' . $imagePath)) {
-                unlink('./storage/' . $imagePath);
+            if (isset($imagePath) && file_exists(FCPATH . 'storage/' . $imagePath)) {
+                unlink(FCPATH . 'storage/' . $imagePath);
             }
-            if (isset($bgImagePath) && file_exists('./storage/' . $bgImagePath)) {
-                unlink('./storage/' . $bgImagePath);
+            if (isset($bgImagePath) && file_exists(FCPATH . 'storage/' . $bgImagePath)) {
+                unlink(FCPATH . 'storage/' . $bgImagePath);
             }
 
             log_message('error', 'Store story error: ' . $e->getMessage());
@@ -243,7 +243,7 @@ class Stori extends CI_Controller {
 
             // Handle image upload
             if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-                $config['upload_path'] = './uploads/images/';
+                $config['upload_path'] = FCPATH . 'storage/images/';
                 $config['allowed_types'] = 'jpeg|jpg|png|gif';
                 $config['max_size'] = 2048;
                 $config['encrypt_name'] = TRUE;
@@ -259,16 +259,16 @@ class Stori extends CI_Controller {
                     ], 500);
                     return;
                 } else {
-                    $upload_data = $this->upload->data();
-                    $imagePath = 'images/' . $upload_data['file_name'];
-                     // Delete old image
-                     if ($existing->image && file_exists('./storage/' . $existing->image)) {
-                         unlink('./storage/' . $existing->image);
-                     }
+                     $upload_data = $this->upload->data();
+                     $imagePath = 'images/' . $upload_data['file_name'];
+                      // Delete old image
+                      if ($existing->image && file_exists(FCPATH . 'storage/' . $existing->image)) {
+                          unlink(FCPATH . 'storage/' . $existing->image);
+                      }
                 }
             }
 
-            // Handle background image upload
+             // Handle background image upload
             if (isset($_FILES['background_image']) && $_FILES['background_image']['error'] == 0) {
                 $config['upload_path'] = FCPATH . 'storage/images/';
                 $config['allowed_types'] = 'jpeg|jpg|png|gif';
@@ -279,8 +279,8 @@ class Stori extends CI_Controller {
 
                 if (!$this->upload->do_upload('background_image')) {
                     // Delete newly uploaded image if background fails
-                    if ($imagePath && file_exists('./storage/' . $imagePath)) {
-                        unlink('./storage/' . $imagePath);
+                    if ($imagePath && file_exists(FCPATH . 'storage/' . $imagePath)) {
+                        unlink(FCPATH . 'storage/' . $imagePath);
                     }
                     log_message('error', 'Background image upload error: ' . $this->upload->display_errors());
                     $this->json_response([
@@ -293,8 +293,8 @@ class Stori extends CI_Controller {
                     $upload_data = $this->upload->data();
                     $bgImagePath = 'images/' . $upload_data['file_name'];
                     // Delete old background image
-                    if ($existing->background_image && file_exists('./storage/' . $existing->background_image)) {
-                        unlink('./storage/' . $existing->background_image);
+                    if ($existing->background_image && file_exists(FCPATH . 'storage/' . $existing->background_image)) {
+                        unlink(FCPATH . 'storage/' . $existing->background_image);
                     }
                 }
             }
@@ -353,11 +353,11 @@ class Stori extends CI_Controller {
             }
 
             // Delete associated images
-            if ($story->image && file_exists('./storage/' . $story->image)) {
-                unlink('./storage/' . $story->image);
+            if ($story->image && file_exists(FCPATH . 'storage/' . $story->image)) {
+                unlink(FCPATH . 'storage/' . $story->image);
             }
-            if ($story->background_image && file_exists('./storage/' . $story->background_image)) {
-                unlink('./storage/' . $story->background_image);
+            if ($story->background_image && file_exists(FCPATH . 'storage/' . $story->background_image)) {
+                unlink(FCPATH . 'storage/' . $story->background_image);
             }
 
             $this->stori_model->delete($id);
