@@ -10,7 +10,7 @@ const Footer = () => {
         <ul className="flex justify-center space-x-6 mb-4">
           <li>
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/PrabowoSubianto"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs flex items-center space-x-2 hover:text-blue-500 transition"
@@ -21,7 +21,7 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/prabowo"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs flex items-center space-x-2 hover:text-pink-500 transition"
@@ -32,7 +32,7 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href="https://x.com/"
+              href="https://x.com/prabowo"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs flex items-center space-x-2 hover:text-blue-400 transition"
