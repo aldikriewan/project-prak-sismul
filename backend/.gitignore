@@ -9,7 +9,7 @@ application/logs/*
 !application/*/.htaccess
 
 /storage/images/*
-!/storage/images/
+!/storage/images/rayatititjuna.txt
 tests/mocks/database/ci_test.sqlite
 
 user_guide_src/build/*
